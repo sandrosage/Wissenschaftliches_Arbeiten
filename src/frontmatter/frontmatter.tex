@@ -1,0 +1,41 @@
+% Robin Prillwitz 2022
+
+\setcounter{page}{1}
+\input{./src/frontmatter/titlepage.tex}
+\newpage
+
+% \frontmatter
+\thispagestyle{empty}
+\clearpage\null
+\newpage
+\pagestyle{plain}
+
+\pagenumbering{roman}
+\setcounter{page}{1}
+
+\input{./src/frontmatter/abstract.tex}
+\newpage
+
+% Table of Contents
+\tableofcontents
+\newpage
+
+\addcontentsline{toc}{section}{Listen}
+
+% Table of Tables
+% \listoftables
+
+% Table of Figures
+\listoffigures
+
+% Acronyms
+\setglossarystyle{listdotted}
+\setglossarystyle{tree}
+\setglossarysection{subsection}
+\printacronyms
+
+% GLOSSARY
+\setglossarysection{subsection}
+\printglossary[]
+
+\cleartoleftpage

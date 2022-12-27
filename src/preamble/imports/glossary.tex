@@ -1,0 +1,33 @@
+% Robin Prillwitz 2022
+
+\usepackage[
+  acronym, toc
+]{glossaries}
+\usepackage[automake, nonumberlist, nogroupskip]{glossaries-extra}
+
+\renewcommand*{\glsclearpage}{} % remove gloassary pagebreak
+% \renewcommand*{\@@glossarysec}{section}
+\setabbreviationstyle[acronym]{long-short}
+\renewcommand*{\glstextformat}[1]{\textit{#1}} % cursive acronyms
+\renewcommand\glstreepredesc{\tabto{4cm}} % glossary spacing
+
+% --------------------------------- Acronyms -------------------------------- %
+\newacronym{esc}{ESC}{Electronic Speed Controller}
+\newacronym{mosfet}{MOSFET}{Metall-Oxid-Halbleiter-Feldeffekttransistor}
+\newacronym{ic}{IC}{Integrated Circuit}
+\newacronym{pwm}{PWM}{Pulsweitenmodulation}
+\newacronym{ml}{ML}{Machine Learning}
+\newacronym{ki}{KI}{Künstliche Intelligenz}
+\newacronym[]{cart}{CART}{Classification and regression trees}
+\newacronym[]{knn}{KNN}{K-nearest neighbors}
+\newacronym[]{cv}{CV}{Cross-Validation}
+
+% --------------------------------- Glossary -------------------------------- %
+\newglossaryentry{bldc}{name={BLDC-Motor},description={Bürstenloser Gleichstrommotor},plural={BLDC-Motoren}}
+\newglossaryentry{dcMotor}{name={DC-Motor},description={Gleichstrommotor}, plural={DC-Motoren}}
+\newglossaryentry{bjt}{name={BJT},description={Bipolartransistor}}
+\newglossaryentry{pdot}{name={$p$-Dotiert},description={Anreichern mit einem 3-wertigen Element}}
+\newglossaryentry{ndot}{name={$n$-Dotiert},description={Anreichern mit einem 5-wertigen Element}}
+\newglossaryentry{hallSensor}{name={Hall-Sensor},description={Sensor zum messen von Magnetfeldern}, plural={Hall-Sensoren}}
+
+\makeglossaries
