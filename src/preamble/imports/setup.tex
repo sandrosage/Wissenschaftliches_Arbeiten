@@ -88,6 +88,14 @@
 
 \usepackage{tabto}
 \usepackage{bm}
-\usepackage{float}
-\floatname{algorithm}{neuerName}
-\floatname{Algorithm}{neuerName}
+
+% List of Equations 
+\DeclareNewTOC[listname={Gleichungsverzeichnis},type=equation]{loe}
+% And a command to add entries to the file:
+\newcommand*{\setequationentry}[2][0]{%
+  \begingroup
+    \advance \value{equation} by #1\relax
+    \addxcontentsline{loe}{equation}[\theequation]{#2}%
+  \endgroup
+  \ignorespaces
+}
