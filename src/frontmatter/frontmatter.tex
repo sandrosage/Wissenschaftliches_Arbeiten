@@ -5,9 +5,9 @@
 \newpage
 
 % \frontmatter
-\thispagestyle{empty}
-\clearpage\null
-\newpage
+% \thispagestyle{empty}
+% \clearpage\null
+% \newpage
 \pagestyle{plain}
 
 \pagenumbering{roman}
@@ -20,22 +20,30 @@
 \tableofcontents
 \newpage
 
+
 \addcontentsline{toc}{section}{Listen}
+
+% Equations list
+\listofequations
+\newpage
 
 % Table of Tables
 % \listoftables
 
 % Table of Figures
 \listoffigures
+\newpage
 
 % Acronyms
 \setglossarystyle{listdotted}
 \setglossarystyle{tree}
 \setglossarysection{subsection}
 \printacronyms
+\newpage
 
 % GLOSSARY
 \setglossarysection{subsection}
 \printglossary[]
 
-\cleartoleftpage
+% \cleartoleftpage
+\newpage

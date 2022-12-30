@@ -1,10 +1,10 @@
 
 % \mainmatter
-\cleartoleftpage
+% \cleartoleftpage
 
-\thispagestyle{empty}
-\vspace*{\fill}
-\newpage
+% \thispagestyle{empty}
+% \vspace*{\fill}
+% \newpage
 
 \onehalfspacing
 \pagenumbering{arabic}
@@ -127,56 +127,38 @@ Ein Vorteil des \textit{Bagging} Ensemble Learning's ist die Parallelität, die 
 \end{figure}
     
 \section{Stacking}
-Die zweite Methode des \textit{Ensemble Learning}'s ist das sogenannte \textit{Stacking}. Wenn hier ausreichend viel Daten vorhanden sind, so können unter der Verwendung eines \textit{meta-learners} mehrere individuelle Lerner kombiniert werden. Es wird auch von \enquote{[C]ombining by learning}\autocite[S.196]{Zhou.2021} gesprochen, da das Aggregationsmodul selbst durch einen individuellen Lernen aufgebaut wird. Die individuellen Lerner werden \textit{first-level learners} und die Lerner, die die Kombination ausüben, \textit{second-level learners} oder \textit{meta learners} genannt. Im ersten Schritt des \textit{Stacking}'s werden die \textit{first-level learners} auf Basis des originalen, gesamten Datensatzes trainiert und im nächsten Schritt wird ein neuer Datensatz, der dann als Trainingssatz für die \textit{meta-learners} fungiert, generiert. Der neu-generierte Datensatz besteht aus den Vorhersagen oder Outputs der \textit{first-level learners}. Der generierte Datensatz darf nicht exakt auf der Basis der Trainingssamples im ersten Schritt erstellt werden, da sonst ein hohes Risiko an \textit{Overfitting} besteht. Deshalb wird in diesem Ansatz das \textit{k-fold Cross-Validation} angewendet. Beim \textit{k-fold CV} wird der originale Datensatz in $k$ annähernd gleich große Partitionen $D_1, D_2,\dots, D_k$ unterteilt. $D_j$ wird als Testsatz und $\bar{D}_j = D/D_j$ als Trainingssatz des $j$-ten Folds angenommen. Gibt es $T$ \textit{first-level learners} und $h_{t}^{(j)}$ $z_{it} = h_{t}^{(j)}(x_i)$
+Die zweite Methode des \textit{Ensemble Learning}'s ist das sogenannte \textit{Stacking}. Wenn hier ausreichend viel Daten vorhanden sind, so können unter der Verwendung eines \textit{meta-learners} mehrere individuelle Lerner kombiniert werden. Es wird auch von \enquote{[C]ombining by learning}\autocite[S.196]{Zhou.2021} gesprochen, da das Aggregationsmodul selbst durch einen individuellen Lerner aufgebaut wird. Die individuellen Lerner werden \textit{first-level learners} und die Lerner, die die Kombination ausüben, \textit{second-level learners} oder \textit{meta learners} genannt. Im ersten Schritt des \textit{Stacking}'s werden die \textit{first-level learners} auf Basis des originalen, gesamten Datensatzes trainiert und im nächsten Schritt wird ein neuer Datensatz, der dann als Trainingssatz für die \textit{meta-learners} fungiert, generiert. Der neu-generierte Datensatz besteht aus den Vorhersagen oder Outputs der \textit{first-level learners}. Der generierte Datensatz darf nicht exakt auf der Basis der Trainingssamples im ersten Schritt erstellt werden, da sonst ein hohes Risiko an \textit{Overfitting} besteht. Deshalb wird in diesem Ansatz das \textit{k-fold Cross-Validation} angewendet. Beim \textit{k-fold CV} wird der originale Datensatz in $k$ annähernd gleich große Partitionen $D_1, D_2,\dots, D_k$ unterteilt. $D_j$ wird als Testsatz und $\bar{D}_j = D/D_j$ als Trainingssatz des $j$-ten Folds angenommen. 
+Wenn für $T$ \textit{first-level learners} und $h_{t}^{(j)}$ den $t$-en Lernalgorithmus, der auf Basis des Trainingssatzes $\bar{D}_j$ trainiert wurde, entspricht, dann ist $z_{it} = h_{t}^{(j)}(x_i)$ für jedes Sample $x_i$ in $D_j$ das Ergebnis bzw. die Ausgabe des \textit{first-level learners}, wobei diese Ausgabe durch $z_i = (z_{i1}; z_{i2}; \dots; z_{iT})$ ausgedrückt werden kann \autocite[vgl. S.197,29]{Zhou.2021} \autocite[vgl. S84f.]{Zhou.2012}. 
+Dann wird diese Ausgabe in Verbindung mit den originalen Annotationen $y_i$ als Eingabe für den \textit{meta learner} verwendet. Schlussendlich entsteht durch den vollständigen Prozess des \gls{cv} der Datensatz $D^{'}=\{(z_i, y_i)\}_{i=1}^{m}$, der für das Training des \textit{second-level learners} angewendet werden kann. Eine vereinfachte Darstellung der eben geschilderten Datenaufteilung wird in 
 
 \begin{figure}
-    \begin{tikzpicture}
-        \matrix (M) [matrix of nodes,
-            nodes={minimum height = 7mm, minimum width = 2cm, outer sep=0, anchor=center, draw},
-            column 1/.style={nodes={draw=none}, minimum width = 4cm},
-            row sep=1mm, column sep=-\pgflinewidth, nodes in empty cells,
-            e/.style={fill=yellow!60}
-          ]
-          {
-            Experiment 1 & |[e]| & & & & \\
-            Experiment 2 & & |[e]| & & & \\
-            Experiment 3 & & & |[e]| & & \\
-            Experiment 4 & & & & |[e]| & \\
-            Experiment 5 & & & & & |[e]| \\
-          };
-          \draw (M-1-2.north west) ++(0,2mm) coordinate (LT) edge[|<->|, >= latex] node[above]{Total number of datasets} (LT-|M-1-6.north east);
-      \end{tikzpicture}
-      \caption{K-Fold Cross Validation mit 5 folds.}
-      \label{fig:kfoldCrossValidation}
-\end{figure}
-
-\begin{figure}
+    \centering
     \begin{tikzpicture}
         \matrix (M) [
             matrix of nodes,
             nodes={
-               minimum height = 7mm,
-               minimum width = 2cm,
+               minimum height = 5mm,
+               minimum width = 1.5cm,
                outer sep=0,
                anchor=center,
                draw,fill=brown!20 % <-added
             },
             column 1/.style={
                 nodes={draw=none,fill=none}, % <-- added fill=none
-                minimum width = 4cm
+                minimum width = 2cm
             },
             row sep=5mm, column sep=-\pgflinewidth,
             nodes in empty cells,
             e/.style={fill=black!90}
           ]
           {
-            1st Iter & |[e]| & & & & & \\
-            2nd Iter & & |[e]| & & & & \\
-            3rd Iter & & & |[e]| & & & \\
-            kth Iter & & & & & & |[e]| \\
+            1st Fold & |[e]| & & & & & \\
+            2nd Fold & & |[e]| & & & & \\
+            3rd Fold & & & |[e]| & & & \\
+            kth Fold & & & & & & |[e]| \\
           };
-          \draw (M-1-3.north west) ++(0,2mm) coordinate (LT) edge[|<->|, >= latex] node[above]{Train} (LT-|M-1-7.north east); % changed 5 to 7
-           \draw (M-1-2.north west) ++(0,2mm) coordinate (LT) edge[|<->|, >= latex] node[above]{Test} (LT-|M-1-2.north east);
+          \draw (M-1-3.north west) ++(0,2mm) coordinate (LT) edge[|<->|, >= latex] node[above]{$\bar{D}_j$} (LT-|M-1-7.north east); % changed 5 to 7
+           \draw (M-1-2.north west) ++(0,2mm) coordinate (LT) edge[|<->|, >= latex] node[above]{$D_j$} (LT-|M-1-2.north east);
     
           % dots
           \node [below=3pt] at (M-3-5.south east) {$\cdots$};
@@ -190,7 +172,7 @@ Die zweite Methode des \textit{Ensemble Learning}'s ist das sogenannte \textit{S
                            }
                     ] \txt in {1,2,3,k}
              {
-                \node [below] at (M-\row-\col.south) {Fold-\txt};
+                \node [below] at (M-\row-\col.south) {$D_{\txt}$};
                 \draw [black!30,line width=1mm,-Triangle] (M-\row-7.east) ++(2mm,0) -- ++(7mm,0) node[black, right] {$E_{\txt}$}; 
               }
       \end{tikzpicture}
@@ -234,6 +216,7 @@ Nachdem nun verschiedene Methoden des \textit{Ensemble Learning}'s vorgestellt w
 
 Die erste Art der Kombination ist das \textit{Averaging}, die in der Regression ihre Anwendung findet, da hier ein nummerischer Ouput erwartet wird. Typische \textit{Averaging}-Methoden sind das \textit{simple Averaging}
 \begin{equation}
+    \setequationentry{Simple Averaging}{}
     \begin{gathered}
         H(x) = \frac{1}{T}\sum_{i=1}^{T}h_{i}(x)
     \end{gathered}
@@ -243,6 +226,7 @@ Die erste Art der Kombination ist das \textit{Averaging}, die in der Regression 
 und das \textit{weighted Averaging}
 
 \begin{equation}
+    \setequationentry{Weighted Averaging}{}
     \begin{gathered}
         H(x) = \frac{1}{T}\sum_{i=1}^{T}w_{i}h_{i}(x)
     \end{gathered}
@@ -254,6 +238,7 @@ Es wird angenommen, dass das Ensemble $T$ individuelle Lerner bzw. \textit{base 
 \subsection{Voting}
 Da nun auf die Anwendung für die Regression beschrieben wurde, befasst sich dieser Abschnitt mit den Methoden für die Klassifizierung. Hierfür wird das \textit{Voting}, dass in drei verschiedenen Arten vorgestellt wird. Bei dem \textit{Voting} gibt es individuelle Lerner $\{h_1, h_2,\dots,h_T\}$ und $h_i$ kann $N$ verschiedene Klassenlabels $\{c_1, c_2,\dots, c_N\}$ vorhersagen. Entspricht der $N$-dimensionale Vektor $(h_{i}^{1}(x), h_{i}^{2}(x),\dots, h_{i}^{N}(x))$ und $h_i$ dem Output des Samples $x$, so ist $h_{i}^{j}(x)$ gleich der Output von $h_i$ für das Klassenlabel $c_j$. Die erste \textit{Voting}-Methode ist das \textit{Majority Voting}
 \begin{equation}
+    \setequationentry{Majority Voting}{}
     \begin{gathered}
         H(x) = \begin{cases}
             \text{$c_j$,} & \text{if} \sum_{i=1}^{T}h_{i}^{j}(x) > 0.5 \sum_{k=1}^{N}\sum_{i=1}^{T}h_{i}^{k}(x); \\
@@ -265,6 +250,7 @@ Da nun auf die Anwendung für die Regression beschrieben wurde, befasst sich die
 
 ,die zweite Methode ist das \textit{Plurality Voting}
 \begin{equation}
+    \setequationentry{Plurality Voting}{}
     \begin{gathered}
         H(x) = c_{\arg \max_{j}\sum_{i=1}^{T}h_{i}^{j}(x)}
     \end{gathered}
@@ -273,6 +259,7 @@ Da nun auf die Anwendung für die Regression beschrieben wurde, befasst sich die
 
 und zuletzt das \textit{Weighted Voting}
 \begin{equation}
+    \setequationentry{Weighted Voting}{}
     \begin{gathered}
         H(x) = c_{\arg \max_{j}\sum_{i=1}^{T}w_{i}h_{i}^{j}(x)}
     \end{gathered}
