@@ -1,4 +1,28 @@
-\section{Beispiel Anhang}
+\section{AdaBoost}
 \label{apx:sec:exampleAppendix}
 
-\lipsum[1-5]
+\begin{algorithm}
+    \caption{AdaBoost}\label{alg:adaBoost}
+    \KwIn{ \tabto{1.75cm} Trainingsdatensatz $D = \{(x_1,y_1), (x_2,y_2), \dots, (x_m,y_m) \}$;       \\
+    \tabto{1.75cm} Base Learner $\mathcal{L}$;                            \\  
+    \tabto{1.75cm} Anzahl der Trainingsrunden $T$.}
+    \BlankLine
+    \Begin{
+        $\mathcal{D}_1(\boldsymbol{x}) = 1/m$; \\
+        \For{$t = 1, 2, \dots, T$}{
+            $h_t = \mathcal{L}(D,\mathcal{D}_t)$; \\
+            $\epsilon_t = P_{\boldsymbol{x}~D_t}(h_t(\boldsymbol{x})\neq f(\boldsymbol{x}))$; \\
+            \If{$\epsilon_t > 0.5$}{\textbf{abbrechen}} 
+            $\alpha_t = \frac{1}{2}\ln(\frac{1-\epsilon_t}{\epsilon_t})$; \\
+            $\begin{aligned}
+                \mathcal{D}_{t+1}(\boldsymbol{x}) &= \frac{\mathcal{D}_t(\boldsymbol{x})}{Z_t} \times \begin{cases}
+                    \exp(-\alpha_t), & \text{wenn $h_t(\boldsymbol{x}) = f(\boldsymbol{x})$};\\
+                    \exp(\alpha_t), & \text{wenn $h_t(\boldsymbol{x})\neq f(\boldsymbol{x})$};
+                 \end{cases} \\
+                &= \frac{\mathcal{D}_t(\boldsymbol{x})\exp(-\alpha_{t}f(\boldsymbol{x})h_{t}(\boldsymbol{x}))}{Z_t}; 
+            \end{aligned}$
+            }
+   }
+   \BlankLine
+   \KwOut{\tabto{1.75cm} $F(\boldsymbol{x}) = sign (\sum_{t=1}^{T}a_{t}h_{t}(\boldsymbol{x}))$}
+\end{algorithm}

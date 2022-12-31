@@ -14,11 +14,13 @@
 \section{Einleitung}
 
 In der heutigen Zeit nimmt die Popularität und Anwendungsmöglichkeit künstlicher Intelligenz immer stärker zu \autocite[S.1]{Boutaba.2018}
-Dies liegt einerseit an der Explosion erstellter und öffentlich zugänglicher Daten, aber auch anderseits an der vorgeschrittenen Forschung im Bereich \gls{ml}, welcher als Teilbereich der \gls{ki} fungiert. Zudem tragen die erweiterten \enquote{computing capabilities} \autocite[S.1]{Boutaba.2018} zu neuen Möglichkeiten der Applikation von \gls{ml} bei. Ein komplexeres und fortgeschrittenes \gls{ml}-Thema ist das \textit{Ensemble Learning}. Im folgenden soll dieses komplexe Thema hinsichtlich der allgemeinen Definition, der verschiedene Methodenansätze und der Aggregationsmöglichkeiten dargestellt und erläutert werden. Unter \textit{Ensemble Learning} versteht man ein \enquote{multiple classifier system}\autocite[S.182]{Zhou.2021} oder auch \enquote{committee-based learning}\autocite[S.15]{Zhou.2012} genannt. Hierzu werden individuelle Lernalgorithmen zunächst auf bestimmte Art und Weise trainiert und folgend mit Hilfe einer bestimmten Kombinationstechnik aggregiert. Es gibt zwei verschiedene Arten, den homogenen und heterogenen Ensembles, zwischen denenen unterschieden werden kann. Homogen bedeutet, dass alle individuellen \enquote{base learners}\autocite[S.182]{Zhou.2021} auf den gleichen Lernalgorithmen basieren, wodurch hingegen heterogene Ensembles auf die Verwendung unterschiedlicher \textit{base learners} und somit Lernalgorithmen aufbauen. Werd ein heterogenes Ensemble betrachtet, so spricht man jedoch nicht mehr von \textit{base learners}, sondern von \enquote{component learners}\autocite[S.15]{Zhou.2012}. Ein Vorteil bei der Anwendung von \textit{Ensemble Learning}-Methoden ist die Verbesserung des Verallgemeinerungsfähigkeit, besser bekannt unter der \enquote{generalization ability}\autocite[S.15]{Zhou.2021}, wobei damit die Fähigkeit gemeint ist, wie gut der Lernalgorithmus nicht nur die Trainigsdaten, sondern auch noch nie zuvor gesehene Testdaten generalisieren kann.
+Dies liegt einerseit an der Explosion erstellter und öffentlich zugänglicher Daten, aber auch anderseits an der vorgeschrittenen Forschung im Bereich \gls{ml}, welcher als Teilbereich der \gls{ki} fungiert. Zudem tragen die erweiterten \enquote{computing capabilities} \autocite[S.1]{Boutaba.2018} zu neuen Möglichkeiten der Applikation von \gls{ml} bei. Ein komplexeres und fortgeschrittenes \gls{ml}-Thema ist das \textit{Ensemble Learning}. Im folgenden soll dieses komplexe Thema hinsichtlich der allgemeinen Definition, der verschiedene Methodenansätze, der Aggregationsmöglichkeiten und der Anwendungsbereiche dargestellt und erläutert werden. Unter \textit{Ensemble Learning} versteht man ein \enquote{multiple classifier system}\autocite[S.182]{Zhou.2021}, welches auch \enquote{committee-based learning}\autocite[S.15]{Zhou.2012} genannt wird. Hierzu werden individuelle Lernalgorithmen zunächst auf bestimmte Art und Weise trainiert und folgend mit Hilfe einer bestimmten Kombinationstechnik aggregiert. Es gibt zwei verschiedene Arten, den homogenen und heterogenen Ensembles, zwischen denenen unterschieden werden kann. Homogen bedeutet, dass alle individuellen \glspl{baselearner}\autocite[S.182]{Zhou.2021} auf den gleichen Lernalgorithmen basieren, wodurch hingegen heterogene Ensembles auf die Verwendung unterschiedlicher \textit{base learners} und somit Lernalgorithmen aufbauen. Werd ein heterogenes Ensemble betrachtet, so spricht man jedoch nicht mehr von \textit{base learners}, sondern von \enquote{component learners}\autocite[S.15]{Zhou.2012}. Ein Vorteil bei der Anwendung von \textit{Ensemble Learning}-Methoden ist die Verbesserung des Verallgemeinerungsfähigkeit, besser bekannt unter der \enquote{generalization ability}\autocite[S.15]{Zhou.2021}, wobei damit die Fähigkeit gemeint ist, wie gut der Lernalgorithmus nicht nur die Trainigsdaten, sondern auch noch nie zuvor gesehene Testdaten generalisieren kann.
 
 \section{Bagging}
-Da die Verallgemeinerungsfähigkeit der Ensembles von der Unabhängigkeit der individuellen \textit{base learners} abhängt und eine strikte Unabhängigkeit leider nicht gewährleistet werden kann, wird versucht, die Lernalgorithmen so unterschiedlich wie möglich von einander zu erstellen. DIes kann dadurch bereitgestellt werden, indem jeder \textit{base learner} auf einer bestimmten Partition des ganzen, originalen Datensatzes trainiert wird. Dabei muss beachtet werdem, dass wenn nicht ausreichend Daten für das Training zur Verfügung steht, die Partitionen so erstellt werden, dass sie sich in gewissen Samples überlappen \autocite[vgl. S.189]{Zhou.2021}. Eine Ensemble Methode die diesen Ansatz verfolgt, ist \textit{Bagging}\autocite[]{Breiman.1996}.\textit{Bagging} ist eine repräsentative Methode von parallelem \textit{Ensemble Learning}, die auf dem sogenannten \textit{Bootstrap sampling} basiert. Der Prozess funktioniert folgendermaßen: Gibt es einen Datensatz $D = \{(x_1,y_1), (x_2,y_2), \dots, (x_m,y_m)\}$, wobei $y_i$ der Klasse bzw. dem Label des Datensamples entsptricht, mit $m$-Samples, dann wird 
-\enquote{randomly}\autocite[S.190]{Zhou.2021} ein Sample aus dem Datensatz kopiert. Dieser Vorgang wird mit \enquote{replacement}\autocite[S.1]{Breiman.1996} ausgeführt, dass heißt, dass eben nur das Sample kopiert wird und sich danach noch immer im originalen Datensatz befindet. Führt man diesen Prozess $T$-mal durch. Eine Übersicht des Verfahren bietet \autoref{fig:bagging}. Der Aspekt des \textit{replacements} wird durch die orangen Samples veranschaulicht, da eigentlich nur ein oranges Samples in $D$ enthalten ist, jedoch durch die \textit{bootstrap sampling}-Methode das orange Sample mehr als einmal in den Bootstrapdatensätzen $\{{D_{B1}, D_{B2}, \dots, D_{BT}\}}$ existieren kann (siehe $D_{B2}, D_{BT}$).
+Da die Verallgemeinerungsfähigkeit der Ensembles von der Unabhängigkeit der individuellen \textit{base learners} abhängt und eine strikte Unabhängigkeit leider nicht gewährleistet werden kann, wird versucht, die Lernalgorithmen so unterschiedlich wie möglich voneinander zu erstellen. Dies kann  bereitgestellt werden, indem jeder \textit{base learner} auf einer bestimmten Partition des ganzen, originalen Datensatzes trainiert wird. Dabei muss beachtet werden, dass wenn nicht ausreichend Daten für das Training zur Verfügung stehen, die Partitionen so erstellt werden müssen, dass sie sich in gewissen \glspl{sample} überlappen \autocite[vgl. S.189]{Zhou.2021}. Eine Ensemble Methode die diesen Ansatz verfolgt, ist \textit{Bagging}\autocite[]{Breiman.1996}. \textit{Bagging} ist eine repräsentative Methode des parallelem \textit{Ensemble Learning}'s, die auf dem sogenannten \textit{Bootstrap sampling} basiert. Der Prozess funktioniert folgendermaßen: Gibt es einen Datensatz $D = \{(x_1,y_1), (x_2,y_2), \dots, (x_m,y_m)\}$, wobei $y_i$ dem \gls{label} des Datensamples entsptricht, mit $m$-Samples, dann wird \enquote{randomly}\autocite[S.190]{Zhou.2021} ein Sample aus dem Datensatz kopiert. Dieser Vorgang wird mit \enquote{replacement}\autocite[S.1]{Breiman.1996} ausgeführt, dass heißt, dass eben nur das Sample kopiert wird und sich danach noch immer im originalen Datensatz befindet. Führt man diesen Prozess $T$-mal durch so entstehen dementsprechend auch $T$ Datensatzpartitionen. Die \gls{baselearner} können nun auf den Partitionen trainiert und daraufhin kombiniert werden \autocite[vgl. S.190]{Zhou.2021}.
+Eine Übersicht des Verfahren bietet \autoref{fig:bagging}. Der Aspekt des \textit{replacements} wird durch die orangen Samples veranschaulicht, da eigentlich nur ein oranges Samples in $D$ enthalten ist, jedoch durch die \textit{bootstrap sampling}-Methode das orange Sample mehr als einmal in den Bootstrapdatensätzen $\{{D_{B1}, D_{B2}, \dots, D_{BT}\}}$ existieren kann (siehe $D_{B2}, D_{BT}$).
+
+\vspace{4ex}
 
 \begin{figure}[h]
     \centering
@@ -112,24 +114,39 @@ Da die Verallgemeinerungsfähigkeit der Ensembles von der Unabhängigkeit der in
 
         \draw [decorate, decoration={brace, amplitude=10pt,mirror}] (1.25,-0.75) -- (3.75,-0.75) node [midway,yshift=-0.6cm,align=center] {\tiny Satz an $L$};
     \end{tikzpicture}
-    \caption{Vorgehensweise der \textit{Bagging}-Methode mittels \textit{Bootstrap sampling}. Das Traning der \textit{individual learners} wird durch die parallele Architektur des System dargestellt.}
+    \caption[Vorgehensweise der \textit{Bagging}-Methode mittels \textit{Bootstrap sampling}.]{Vorgehensweise der \textit{Bagging}-Methode mittels \textit{Bootstrap sampling}. Das Traning der \textit{individual learners} wird durch die parallele Architektur des System dargestellt.}
     \label{fig:bagging}
 \end{figure}
 
-Eine Bedingung für die Funktionsweise der \textit{Bagging}-Methode ist die Instabilität der Lernalgorithmen, wobei \citeauthor[]{Breiman.1996} diese Vorraussetzung studiert hat und es sich herausstellte, dass z.B. Neuronale Netze, \gls{cart} eine gewisse Instabilität aufweisen währenddessen der \gls{knn}-Algorithmus stabil bleibt. Gibt es \textit{base learners}, die unempfinlich gegenüber \enquote{perturbation}\autocite[S.51]{Zhou.2012} in den Trainingssamples sind und somit gewissermaßen gleich sind, dann wird eine Kombination dieser \textit{base learners} keine Verbesserung in der Verallgemeinerung gewährleisten. Diese \textit{base learners} nennt man dann auch \enquote{stable learners}\autocite[S.51]{Zhou.2012}. \citeauthor[]{Breiman.1996} testete dies anhand sechs verschiedener Datensätze und stellt den Beweis hierfür in \autoref{fig:ClassificationErrorKNN} dar.
+\vspace{4ex}
+
+Eine Bedingung für die Funktionsweise der \textit{Bagging}-Methode ist die Instabilität der Lernalgorithmen, wobei \citeauthor[]{Breiman.1996}\autocite[]{Breiman.1996} diese Vorraussetzung studiert hat und es sich herausstellte, dass z.B. Neuronale Netze, \gls{cart} eine gewisse Instabilität aufweisen währenddessen der \gls{knn}-Algorithmus stabil bleibt. Gibt es \textit{base learners}, die unempfinlich gegenüber \enquote{perturbation}\autocite[S.51]{Zhou.2012} in den Trainingssamples sind und somit gewissermaßen gleich sind, dann wird eine Kombination dieser \textit{base learners} keine Verbesserung in der Verallgemeinerung gewährleisten. Diese \textit{base learners} nennt man dann auch \enquote{stable learners}\autocite[S.51]{Zhou.2012}. \citeauthor[]{Breiman.1996}\autocite[]{Breiman.1996} testete dies anhand sechs verschiedener Datensätze und stellt den Beweis hierfür in \autoref{tab:ClassificationErrorKNN} dar.
 Ein Vorteil des \textit{Bagging} Ensemble Learning's ist die Parallelität, die es ermöglicht,durch Verwendung von \enquote{multi-core computing processors}\autocite[S.48]{Zhou.2021} oder parallelen Computerarchitekturen, die Trainingszeit zu minimieren.
 
-\begin{figure}[h]
+\begin{table}[h]
     \centering
-    \includegraphics[width=0.5\textwidth]{KNNstable.png}
     \caption{Vergleich der \glsentrylong{knn}-Klassifizierungsfehler mit $(\bar{e}_B)$ und ohne $(\bar{e}_S)$ Bagging. Es fällt sofort auf, dass sich der Klassifierungsfehler kaum bzw. gar nicht verringert. Dieser Vergleich wurde anhand sechs verschiedener Datensätzen erstellt \autocite[vgl.S.14]{Breiman.1996}.}
-    \label{fig:ClassificationErrorKNN}
-\end{figure}
+    \vspace{4ex}
+    \begin{tabular}{lrr}
+        \hline
+        \textbf{Datensatz} & $\bar{e}_S$ & $\bar{e}_B$ \\
+        \hline
+        waveform & 26.1 & 26.1 \\
+        heart & 5.1 & 5.1 \\
+        breast cancer & 4.4 & 4.4 \\
+        ionosphere & 36.5 & 36.5 \\
+        diabetes & 29.3 & 29.3 \\
+        glass & 30.1 & 30.1 \\
+        \hline
+    \end{tabular}
+    \label{tab:ClassificationErrorKNN}
+\end{table}
+
     
 \section{Stacking}
-Die zweite Methode des \textit{Ensemble Learning}'s ist das sogenannte \textit{Stacking}. Wenn hier ausreichend viel Daten vorhanden sind, so können unter der Verwendung eines \textit{meta-learners} mehrere individuelle Lerner kombiniert werden. Es wird auch von \enquote{[C]ombining by learning}\autocite[S.196]{Zhou.2021} gesprochen, da das Aggregationsmodul selbst durch einen individuellen Lerner aufgebaut wird. Die individuellen Lerner werden \textit{first-level learners} und die Lerner, die die Kombination ausüben, \textit{second-level learners} oder \textit{meta learners} genannt. Im ersten Schritt des \textit{Stacking}'s werden die \textit{first-level learners} auf Basis des originalen, gesamten Datensatzes trainiert und im nächsten Schritt wird ein neuer Datensatz, der dann als Trainingssatz für die \textit{meta-learners} fungiert, generiert. Der neu-generierte Datensatz besteht aus den Vorhersagen oder Outputs der \textit{first-level learners}. Der generierte Datensatz darf nicht exakt auf der Basis der Trainingssamples im ersten Schritt erstellt werden, da sonst ein hohes Risiko an \textit{Overfitting} besteht. Deshalb wird in diesem Ansatz das \textit{k-fold Cross-Validation} angewendet. Beim \textit{k-fold CV} wird der originale Datensatz in $k$ annähernd gleich große Partitionen $D_1, D_2,\dots, D_k$ unterteilt. $D_j$ wird als Testsatz und $\bar{D}_j = D/D_j$ als Trainingssatz des $j$-ten Folds angenommen. 
-Wenn für $T$ \textit{first-level learners} und $h_{t}^{(j)}$ den $t$-en Lernalgorithmus, der auf Basis des Trainingssatzes $\bar{D}_j$ trainiert wurde, entspricht, dann ist $z_{it} = h_{t}^{(j)}(x_i)$ für jedes Sample $x_i$ in $D_j$ das Ergebnis bzw. die Ausgabe des \textit{first-level learners}, wobei diese Ausgabe durch $z_i = (z_{i1}; z_{i2}; \dots; z_{iT})$ ausgedrückt werden kann \autocite[vgl. S.197,29]{Zhou.2021} \autocite[vgl. S84f.]{Zhou.2012}. 
-Dann wird diese Ausgabe in Verbindung mit den originalen Annotationen $y_i$ als Eingabe für den \textit{meta learner} verwendet. Schlussendlich entsteht durch den vollständigen Prozess des \gls{cv} der Datensatz $D^{'}=\{(z_i, y_i)\}_{i=1}^{m}$, der für das Training des \textit{second-level learners} angewendet werden kann. Eine vereinfachte Darstellung der eben geschilderten Datenaufteilung wird in 
+Die zweite Methode des \textit{Ensemble Learning}'s ist das sogenannte \textit{Stacking}. Wenn hier ausreichend viel Daten vorhanden sind, können unter der Verwendung eines \textit{meta-learners} mehrere individuelle Lerner kombiniert werden. Es wird auch von \enquote{[C]ombining by learning}\autocite[S.196]{Zhou.2021} gesprochen, da das Aggregationsmodul selbst durch einen individuellen Lerner aufgebaut wird. Die individuellen Lerner werden \textit{first-level learners} und die Lerner, die die Kombination ausüben, \textit{second-level learners} oder \textit{meta learners} genannt. Im ersten Schritt des \textit{Stacking}'s werden die \textit{first-level learners} auf Basis des originalen, gesamten Datensatzes trainiert und im nächsten Schritt wird ein neuer Datensatz, der dann als Trainingssatz für die \textit{meta-learners} fungiert, generiert. Der neu-generierte Datensatz besteht aus den Vorhersagen oder \glspl{output} der \textit{first-level learners}. Der generierte Datensatz darf nicht exakt auf Basis der Trainingssamples im vorherigen Schritt erstellt werden, da sonst ein hohes Risiko an \textit{Overfitting} besteht. Deshalb wird in diesem Ansatz das \textit{k-fold Cross-Validation} angewendet. Beim \textit{k-fold CV} wird der originale Datensatz in $k$ annähernd gleich große Partitionen $D_1, D_2,\dots, D_k$ unterteilt. $D_j$ wird als Testsatz und $\bar{D}_j = D/D_j$ als Trainingssatz des $j$-ten Folds deklariert. 
+Wenn es  $T$ \textit{first-level learners} gibt und $h_{t}^{(j)}$ den $t$-en Lernalgorithmus, der auf Basis des Trainingssatzes $\bar{D}_j$ trainiert wurde, entspricht, dann ist $z_{it} = h_{t}^{(j)}(x_i)$ für jedes Sample $x_i$ in $D_j$ der zugehörige \gls{output}. Diese \glspl{output} der \textit{first-level learners} kann durch $z_i = (z_{i1}; z_{i2}; \dots; z_{iT})$ ausgedrückt werden \autocite[vgl. S.197,29]{Zhou.2021} \autocite[vgl. S84f.]{Zhou.2012}. 
+Daraufhin werden die \glspl{output} in Verbindung mit den originalen Annotationen $y_i$ als Eingabe für den \textit{meta learner} verwendet. Schlussendlich entsteht durch den vollständigen Prozess des \gls{cv} der  neu generierte Datensatz $D^{'}=\{(z_i, y_i)\}_{i=1}^{m}$, der für das Training des \textit{second-level learners} angewendet werden kann. Eine vereinfachte Darstellung der eben geschilderten Datenaufteilung wird in \autoref{fig:KFCV} gezeigt.
 
 \begin{figure}
     \centering
@@ -152,16 +169,17 @@ Dann wird diese Ausgabe in Verbindung mit den originalen Annotationen $y_i$ als 
             e/.style={fill=black!90}
           ]
           {
-            1st Fold & |[e]| & & & & & \\
-            2nd Fold & & |[e]| & & & & \\
-            3rd Fold & & & |[e]| & & & \\
-            kth Fold & & & & & & |[e]| \\
+            1. Fold & |[e]| & & & & & \\
+            2. Fold & & |[e]| & & & & \\
+            j-ter Fold & & & |[e]| & & & \\
+            k-ter Fold & & & & & & |[e]| \\
           };
-          \draw (M-1-3.north west) ++(0,2mm) coordinate (LT) edge[|<->|, >= latex] node[above]{$\bar{D}_j$} (LT-|M-1-7.north east); % changed 5 to 7
-           \draw (M-1-2.north west) ++(0,2mm) coordinate (LT) edge[|<->|, >= latex] node[above]{$D_j$} (LT-|M-1-2.north east);
+        %   \draw (M-1-3.north west) ++(0,2mm) coordinate (LT) edge[|<->|, >= latex] node[above]{$\bar{D}_j$} (LT-|M-1-7.north east); % changed 5 to 7
+        %    \draw (M-1-2.north west) ++(0,2mm) coordinate (LT) edge[|<->|, >= latex] node[above]{$D_j$} (LT-|M-1-2.north east);
     
           % dots
           \node [below=3pt] at (M-3-5.south east) {$\cdots$};
+          \node [below=3pt] at (M-2-3.south east) {$\cdots$};
     
           % fold labels and arrows
            \foreach [
@@ -170,44 +188,20 @@ Dann wird diese Ausgabe in Verbindung mit den originalen Annotationen $y_i$ als 
                                            int(\row+3), % use seventh column
                                            int(\row+1)) % else use column row+1
                            }
-                    ] \txt in {1,2,3,k}
+                    ] \txt in {1,2,j,k}
              {
                 \node [below] at (M-\row-\col.south) {$D_{\txt}$};
-                \draw [black!30,line width=1mm,-Triangle] (M-\row-7.east) ++(2mm,0) -- ++(7mm,0) node[black, right] {$E_{\txt}$}; 
+                \draw [black!30,line width=1mm,-Triangle] (M-\row-7.east) ++(2mm,0) -- ++(7mm,0) node[black, right] {}; 
               }
       \end{tikzpicture}
+      \caption[]{Veranschaulichung der \textit{K-fold Cross Validation} Partitionsaufteilung. Hier entspricht $D_j$ dem Testdatensatz und $\bar{D}_j$ dem Trainingsdatensatz.}
+      \label{fig:KFCV}
 \end{figure}
 
 \section{Boosting}
-Die letzte Methoden ist das sognannte \textit{Boosting}. Bei diesem Verfahren wird versucht \enquote{weak learners}\autocite[S.184]{Zhou.2021} in \enquote{strong learners}\autocite[S.184]{Zhou.2021} umzuwandeln. Zunächst wird mit dem Training des ersten \textit{base learners} auf Basis einer bestimmten Datenverteilung begonnen. Danach werden die Trainingssamples hinsichtlich des Ergebnisses der Trainingsphase angepasst, indem Samples, die als falsch klassifiziert wurden, nun mehr Aufmerksamkeit in den noch folgenden Trainingsphasen der weiteren \textit{base learners} bekommen. Vereinfacht bedeutet das, dass nach dem Training des ersten \textit{base learner}'s, die Datenverteilung angepasst wird und daraufhin der zweite \textit{base learner}, dessen Ergebnis für die Anpassung der Datenverteilung für den nächsten Iterationsschritt verwendet wird, traniert wird. Der Prozess wiederholt sich so lange bis eine vordefinierte Anzahl $T$ an \textit{base learners} erreicht wird. Schlussendlich erhält dann jeder dieser Lernalgorithmen eine Gewichtung und wird zusammen mit den anderen kombiniert.
-Eine der bekanntesten und einflussreichsten Boosting-Algorithmen ist der \textit{AdaBoost}-Algorithmus (ZITAT). Der Algorithmus setzt vorraus dass der gewählte \textit{base learner} in der Lage ist, mit bestimmten Datenverteilungen trainiert werden kann. Eine Möglichkeit für das Erreichen einer solchen Datenverteilung bietet das \enquote{re-weighting}, bei dem nach jeder Trainingsrunde ein neues Gewicht den Samples in der Datenverteilung zugeordnet wird. Eine weitere Option bietet das \enquote{re-sampling}, welches verwendet werden kann, falls der Lernalgorithmus \textit{re-weighting} nicht unterstützt. Hier wird in jeder Trainingsinteration eine neue Teilmenge aus der gesamten Datenverteilung entnommen. Eine Erweiterung des \textit{re-sampling}'s bietet den Neustart des \textit{Boosting}'s an, wobei dieser Ansatz in (ZITAT) genauer erläutert wird.
+Die letzte Methoden ist das sognannte \textit{Boosting}. Bei diesem Verfahren wird versucht \enquote{weak learners}\autocite[S.184]{Zhou.2021} in \enquote{strong learners}\autocite[S.184]{Zhou.2021} umzuwandeln. Zunächst wird mit dem Training des ersten \textit{base learners} auf Basis einer bestimmten Datenverteilung begonnen. Danach werden die Trainingssamples hinsichtlich des Ergebnisses der ersten Trainingsphase angepasst. Dies passiert, indem Samples, die als falsch klassifiziert wurden, nun mehr Aufmerksamkeit in den noch folgenden Trainingsphasen der weiteren \textit{base learners} bekommen. Vereinfacht bedeutet das, dass nach dem Training des ersten \textit{base learner}'s, die Datenverteilung angepasst wird und daraufhin der zweite \textit{base learner}, dessen Ergebnis für die Anpassung der Datenverteilung für den nächsten Iterationsschritt verwendet wird, traniert wird. Der Prozess wiederholt sich so lange bis eine vordefinierte Anzahl $T$ an \textit{base learners} erreicht wird. Schlussendlich erhält dann jeder dieser Lernalgorithmen eine Gewichtung und wird zusammen mit den anderen kombiniert.
+Eine der bekanntesten und einflussreichsten Boosting-Algorithmen ist der \textit{AdaBoost}-Algorithmus \autocite[]{Freund.1997}. Der Algorithmus setzt voraus, dass der gewählte \textit{base learner} in der Lage ist, mit bestimmten Datenverteilungen trainiert werden zu können. Eine Möglichkeit für das Erreichen einer solchen Datenverteilung bietet das \textit{re-weighting}, bei dem nach jeder Trainingsrunde ein neues Gewicht den Samples in der Datenverteilung zugeordnet wird. Eine weitere Option bietet das \textit{re-sampling}, welches verwendet werden kann, falls der Lernalgorithmus \textit{re-weighting} nicht unterstützt. Hier wird in jeder Trainingsinteration eine neue Teilmenge aus der gesamten Datenverteilung entnommen \autocite[vgl. S.23ff.]{Zhou.2012} \autocite[vgl. S.184/S.188]{Zhou.2021}. Eine Erweiterung des \textit{re-sampling}'s bietet den Neustart des \textit{Boosting}'s an, wobei dieser Ansatz in \citetitle{kohavi.1996} \autocite[]{kohavi.1996} genauer erläutert wird.
 
-
-\begin{algorithm}
-    \caption{AdaBoost}\label{alg:adaBoost}
-    \KwIn{ \tabto{1.75cm} Trainingsdatensatz $D = \{(x_1,y_1), (x_2,y_2), \dots, (x_m,y_m) \}$;       \\
-    \tabto{1.75cm} Base Learner $\mathcal{L}$;                            \\  
-    \tabto{1.75cm} Anzahl der Trainingsrunden $T$.}
-    \BlankLine
-    \Begin{
-        $\mathcal{D}_1(\boldsymbol{x}) = 1/m$; \\
-        \For{$t = 1, 2, \dots, T$}{
-            $h_t = \mathcal{L}(D,\mathcal{D}_t)$; \\
-            $\epsilon_t = P_{\boldsymbol{x}~D_t}(h_t(\boldsymbol{x})\neq f(\boldsymbol{x}))$; \\
-            \If{$\epsilon_t > 0.5$}{\textbf{abbrechen}} 
-            $\alpha_t = \frac{1}{2}\ln(\frac{1-\epsilon_t}{\epsilon_t})$; \\
-            $\begin{aligned}
-                \mathcal{D}_{t+1}(\boldsymbol{x}) &= \frac{\mathcal{D}_t(\boldsymbol{x})}{Z_t} \times \begin{cases}
-                    \exp(-\alpha_t), & \text{wenn $h_t(\boldsymbol{x}) = f(\boldsymbol{x})$};\\
-                    \exp(\alpha_t), & \text{wenn $h_t(\boldsymbol{x})\neq f(\boldsymbol{x})$};
-                 \end{cases} \\
-                &= \frac{\mathcal{D}_t(\boldsymbol{x})\exp(-\alpha_{t}f(\boldsymbol{x})h_{t}(\boldsymbol{x}))}{Z_t}; 
-            \end{aligned}$
-            }
-   }
-   \BlankLine
-   \KwOut{\tabto{1.75cm} $F(\boldsymbol{x}) = sign (\sum_{t=1}^{T}a_{t}h_{t}(\boldsymbol{x}))$}
-\end{algorithm}
 
 \section{Kombinierungsansätze}
 Nachdem nun verschiedene Methoden des \textit{Ensemble Learning}'s vorgestellt worden sind, behandelt dieses Kapitel die Kombinierungsoptionen nach denen die \textit{base learners} zusammengefügt werden können. \citeauthor[]{Dietterich.}\autocite[vgl. S.3f.]{Dietterich.} liefert drei Perspektiven, die erkläutern warum das Kombinieren vorteilhaft ist. Aus statistischer Sicht ist der Hypothesenraum meistens sehr groß, wodurch es mehrere Hypothesen, die die gleichen Ansätze anstreben, gibt. Wenn nur ein einzelner Lernalgorithmus oder \textit{base learner} betrachtet wird, dann hängt die Verallgemeinerungsgenauigkeit (\textit{generalization performance}) ausschließlich von der Genauigkeit dieses \textit{base learners} ab. Werden nun mehrere Hypothesen kombiniert, so verringert sich auch das Risiko einer Falschaussage. Werden die Lernalgorithmen aus rechnerischer Perspektive betrachtet, so können diese oftmal in sogenannten \enquote{local optimum[s]}\autocite[S.193]{Zhou.2021} feststecken. Werden jedoch mehrere Lernalgorithmen verwendet, so senkt sich auch hier wieder das Risiko in einem \textit{local optimum} festzustecken. Zuletzt gibt es noch die repräsentative Perspektive, bei der angenommen wird, dass die richtige Hypothese nicht in Raum der existierenden Hypothesen befindet. Somit kann durch Verwendung mehrer Hypothesen eine genauere Annäherung an die richtige Hypothese gewährleistet werden \autocite[vgl. S.194]{Zhou.2021} \autocite[vgl. S.4]{Dietterich.}. In den weiteren Unterkapiteln werden die verschiedenen Strategien der Kombination erläutert.
@@ -267,20 +261,9 @@ und zuletzt das \textit{Weighted Voting}
 \end{equation}
 . Wird das \textit{Weighted Voting} geanuer betrachtet so lässt sich erkennen, dass es vom \textit{Plurality Voting} abgeleitet ist und als Erweiterung noch Gewichtungen berücksichtigt werden. $w_i$ entspricht somit dem Gewicht von $h_i$. Ein Nachteil des \textit{Majority Voting}'s ist die \textit{reject}-Option, da in vertrauenswürdigen Anwendungen, wie z.B. in der Medizin, immer ein Resultat getroffen werden muss \autocite[vgl. S.195]{Zhou.2021}
 
-\section{Anwendungsbeispiele von \textit{Ensemble Learning}}
-- KDD-Cup most famous data mining competition:
--tasks:
-    network intrusion detection (1999)
-    molecular bioactivity and protein locale prediction (2001)
-    musik recommendation (2011)
-    etc.
-- various techniques, ensemble learning methods have drawn the most attention and won the competitions for the most times 
-- (2009-2011) first and second place winners have used ensemble methods
+\section{Anwendungsbereiche}
 
-- Netflix Prize held by the online DVD-rental service \textit{Netflix}
-- predictions about how much someone is going to enjoy a movie based on their preferences
-- on september 21, 2009 Netflix awarded the 1M Dollar grand prize to the team \textit{BellKor's Pragmatic Chaos}
-- solution was based on combining various classifiers 
+Es gibt mehrere Anwendungsbereiche in denen \acrlong{ml} durch \textit{Ensemble Learning} erweitert werden kann für eine deutliche Verbesserung der Genauigkeit und Performanz sorgt. Ein Beispiel ist der KDD-Cup\footnote{\url{https://kdd.org/kdd-cup}}, der einer der bekanntesten Data-Mining Wettbewerb entspricht. Die verschiedenen Wettbewerbsaufgaben über die Jahre waren z.B. Erkennung von Netzwerkeinbrüchen (1999), molekulare Bioaktivität und Vorhersage von Proteinstandorten (2001) und Musikempfehlung (2011). Für das Lösen der Aufgaben wurden verschiedene Techniken verwendet, wobei \textit{Ensemble Learning} am meisten an Aufmerksamkeit gewann. In den Jahren 2009 bis 2011 benutzten die erst- und zweitplazierten Gewinner verschiedene \textit{Ensemble Learning}-Methoden.
+Ein weiteres Beispiel bietet der \textit{Netflix Prize}, der von dem Streamingdienstanbieter Netflix im Jahr 2009 verliehen wurde. Ziel war es Voraussagen treffen zu können, wie sehr jemand einen Film aufgrund seiner Vorlieben genießen wird. Den 1M Dollar Preis gewann dann das Team \textit{BellKor's Pragmatic Chaos}, da ihr Lösungsansatz auf der Kombination verschiedenen Lernalgorithmen basierte und ihnen somit zum Sieg verhalf.
 
-- ensemble methods have been successfully applied to diverse real-world tasks. For example computer vision in almost all branches such as object detection, recognition and tracking
-- credit card fraud detection, bankruptcy prediction, protein structure classification, weather forecasting, aircraft engine fault diagnosis
+Im Allgemeinen kann \textit{Ensemble Learning} erfolgreich in den verschiedensten Bereichen eingesetzt werden. Weitere Beispiele hierfür sind \textit{Computer Vision}, \textit{Object Detection}, Erkennung von Kreditkartenbetrug und Wettervorhersagen \autocite[vgl. S.17f.]{Zhou.2012}.
